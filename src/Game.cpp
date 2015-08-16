@@ -15,7 +15,6 @@ Game::Game() :
     cbreak();
     noecho();
     curs_set(0);
-    halfdelay(3);
 }
 
 Game::~Game()
@@ -25,12 +24,20 @@ Game::~Game()
 
 void Game::generateFood()
 {
-    area.food.x = 1 + rand() % (AREA_WIDTH  - 1);
-    area.food.y = 1 + rand() % (AREA_HEIGHT - 1);
+    while (true)
+    {
+        area.food.x = 1 + rand() % (AREA_WIDTH  - 1);
+        area.food.y = 1 + rand() % (AREA_HEIGHT - 1);
+
+        if (mvinch(area.food.y, area.food.x) != '#')
+            return;
+    }
 }
 
 void Game::update()
 {
+    timeout(1500 / area.snake->getLength());
+
     char ch = getch();
 
     switch (ch)
