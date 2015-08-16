@@ -127,6 +127,12 @@ void Game::run()
         update();
         draw();
     }
+
+    mvaddstr( AREA_HEIGHT >> 1,      (AREA_WIDTH -  9) >> 1, "game over");
+    mvaddstr((AREA_HEIGHT >> 1) + 1, (AREA_WIDTH - 17) >> 1, "press 'e' to exit");
+    timeout(-1);
+
+    while (getch() != 'e');
 }
 
 bool Game::isSnakeCrashed() const
